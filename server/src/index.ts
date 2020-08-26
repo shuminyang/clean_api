@@ -1,9 +1,15 @@
-import express from "express"
-import bodyParser from "body-parser"
+import { MikroORM } from "@mikro-orm/core"
+import microConfig from "./mikro-orm.config"
 
-const PORT = 5000
+const main = async () => {
+  const orm = await MikroORM.init(microConfig)
+  orm.getMigrator().up()
 
-const app = express()
-app.use(bodyParser.json())
+  // const user = orm.em.create(User, { name: "hello" })
+  // await orm.em.persistAndFlush(user)
 
-app.listen(PORT, () => console.log(`Listening on port ${PORT}`))
+  
+
+}
+
+main()
