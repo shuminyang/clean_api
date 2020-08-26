@@ -1,3 +1,4 @@
+import "reflect-metadata"
 import { MikroORM } from "@mikro-orm/core"
 import microConfig from "./mikro-orm.config"
 import express from "express"
@@ -16,7 +17,8 @@ const main = async () => {
     schema: await buildSchema({
       validate: false,
       resolvers: [UserResolver]
-    })
+    }),
+    context: () => ({ em: orm.em, })
   })
 
   apolloServer.applyMiddleware({ app })
